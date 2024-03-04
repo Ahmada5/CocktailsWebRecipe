@@ -1,17 +1,11 @@
-<!-- <template>
-    <div  class="h-screen" style="background-color: aqua;">
-        <h1>DRINKS</h1>
-    </div>
-</template> -->
-
 <template> 
     <v-container fluid class="d-lg-flex flex-column justify-center"  style="background-color: yellow;" >	
-       <v-data-iterator
-              class="mt-16 d-flex flex-column align-center justify-center"
-             style="background-color: violet;"
-             :items="cocktail"
-             :items-per-page="3"
-     >
+        <v-data-iterator
+            class="mt-16 d-flex flex-column align-center justify-center"
+            style="background-color: violet;"
+            :items="cocktail"
+            :items-per-page="3"
+    >
              
              <template v-slot:default="{ items }">
                      <v-row class=" d-lg-flex justify-center align-center w-100" style="background-color: tomato;">
@@ -39,12 +33,7 @@
                                  </v-list-item>
                                  
                                  <div class="d-flex justify-end mr-1 mb-1">
-                                     <div class="d-flex align-center">
-                                         <div class="text-truncate">{{ item.strGlass }}</div>
-                                     </div>
-                                     <v-btn @click="navigateToDetails">Read</v-btn>
-                                     
-                                     
+                                     <v-btn router :to="'/DrinksDetail/:id' + item.raw.idDrink" text>Read</v-btn>
                                  </div>
                              </v-card>
 
@@ -82,43 +71,36 @@
 </template>
 
 <script>
-import {RouterLink} from "vue-router";
+    export default {
+        data() {
+            return {
+            cocktail: [] 
+            };
+        },
+        async mounted() {
+            const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic';
+            const options = {
+                method: 'GET',
+            };
 
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json(); // Parse response as JSON
+                this.cocktail = result.drinks; // Update recipes data
+                console.log(result);
+            } catch (error) {
+                console.error(error);
+            };
+        },
 
-export default {
-data() {
- return {
-   cocktail: [] 
- };
-},
-async mounted() {
- //const fetch = require('node-fetch');
-
- const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic';
- const options = {
-   method: 'GET',
- };
-
- try {
-   const response = await fetch(url, options);
-   const result = await response.json(); // Parse response as JSON
-   this.cocktail = result.drinks; // Update recipes data
-   console.log(result);
-     
- } catch (error) {
-   console.error(error);
- };
-},
-
-  methods: {
-     getImageHeight() {
-         // Determine height based on screen width
-         return this.$vuetify.breakpoint.smAndDown ? 200 : 500;
-     },
-     navigateToDetails() {
-         console.log("push");
-         this.$router.push("/detailComp");
-     }
-   }
-};
+        methods: {
+            getImageHeight() {
+                return this.$vuetify.breakpoint.smAndDown ? 200 : 500;
+            },
+            navigateToDetails() {
+                console.log("push");
+                this.$router.push("/detailComp");
+            }
+        }
+    };
 </script>

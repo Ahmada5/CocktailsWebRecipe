@@ -1,13 +1,10 @@
 <script setup>
-import NavbarSection from './components/NavbarSection.vue'
-import HeroSection from './components/HeroSection.vue'
+  import NavbarSectionVue from "./components/NavbarSection.vue";
+  import FooterSectionVue from "./components/FooterSection.vue";
 </script>
 
 <template>
-  <!-- <NavbarSection/> -->
-  <HeroSection/>
+  <NavbarSectionVue/>
   <router-view></router-view>
-    
+  <FooterSectionVue/>
 </template>
-
-

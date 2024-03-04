@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import DrinksMain from "../views/DrinksMain.vue";
-import HeroSection from "../components/HeroSection.vue";
+import Hero from "../components/HeroSection.vue";
+import DrinksDetail from "../views/DrinksDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', component: DrinksMain } // Set the correct path for DrinksMain
-    //{ path: '/', component: HeroSection } // Set a unique path for HeroSection
+    { path: '/', component: Hero },
+    { path: '/DrinksDetail/:id', component: DrinksDetail }
   ],
 });
 

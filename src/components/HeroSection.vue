@@ -7,18 +7,17 @@
         <h1 >This is Hero section</h1>
       </v-div>
     </v-responsive>
+    <DrinksMain/>
   </template>
   
-  <!-- <script>
-  export default {
-    name: "Hero",
-    data() {
-      return {
-        page: "Hero",
-      };
-    },
-  };
-  </script> -->
+  <script>
+    import DrinksMain from "../views/DrinksMain.vue";
+    export default {
+      components: {
+        DrinksMain
+      }
+    };
+  </script>
   
   <style scoped>
     .Hero{
