@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <NavbarSectionVue/>
+  <!-- <NavbarSectionVue/> -->
   <router-view></router-view>
   <FooterSectionVue/>
 </template>

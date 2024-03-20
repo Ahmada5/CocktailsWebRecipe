@@ -1,5 +1,20 @@
 <template>
-    <div class="d-flex align-center justify-center" style="background-color:antiquewhite">
-        <h1>NB</h1>
+    <div class="gradient d-flex align-center justify-left" style="background-color:#de872b;">
+        <div class="ml-5 d-flex flex-row align-center">
+            <RouterLink to="/" tag="button">
+                <v-btn class="font-weight-bold font-italic text-black text-h6 font-times"
+                    prepend-icon='mdi-arrow-left' variant="plain">
+                    Back to the list
+                </v-btn>
+
+            </RouterLink>
+
+        </div>
     </div>
 </template>
+
+<style>
+.gradient {
+    background: linear-gradient(to bottom, #b75e11, transparent);
+}
+</style>

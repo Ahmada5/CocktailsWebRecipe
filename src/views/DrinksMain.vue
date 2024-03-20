@@ -1,48 +1,50 @@
-<template> 
-    <v-container fluid class="d-lg-flex flex-column justify-center"  style="background-color: yellow;" >	
+<template>
+    <v-row>
+        <v-col class="h-30vh" style="background-color: #de872b;">
+          <v-col class="gradient mb-n4">
+            
+          </v-col>
+        </v-col>
+    </v-row>
+    <v-container fluid class="color-cor d-flex flex-column justify-center" >	
         <v-data-iterator
-            class="mt-16 d-flex flex-column align-center justify-center"
-            style="background-color: violet;"
+            class="color-cor mt-16 d-flex flex-column align-center justify-center"
             :items="cocktail"
-            :items-per-page="3"
+            :items-per-page="5"
     >
-             
-             <template v-slot:default="{ items }">
-                     <v-row class=" d-lg-flex justify-center align-center w-100" style="background-color: tomato;">
+             <template v-slot:default="{ items }" class="d-flex align-center" >
+                     <v-row class=" d-flex justify-center align-center mt-0">
                          <v-col
-                             v-for="item in items"
-                             :key="item.idDrink"
-                             cols="12"
-                             sm="10"
-                             md="8"
-                             lg="6"
-                             xl="3"
+                            class="d-flex justify-center"
+                            v-for="item in items"
+                            :key="item.idDrink"
                          >
-                             <v-card>
-                                 <v-img 
-                                     :src="item.raw.strDrinkThumb"
-                                     cover
-                                     aspect-ratio="1/1" 
-                                     height="getImageHeight()">
-                                 </v-img>
-
-                                 <v-list-item>
-                                     <template v-slot:title>
-                                     <strong class="text-h6 mb-2">{{ item.raw.strDrink }}</strong>
-                                     </template>
-                                 </v-list-item>
-                                 
-                                 <div class="d-flex justify-end mr-1 mb-1">
-                                     <v-btn router :to="'/DrinksDetail/:id' + item.raw.idDrink" text>Read</v-btn>
-                                 </div>
+                             <v-card
+                                width="250"
+                                elevation="16" 
+                                class="border" 
+                                style="background-color: #7c3209;">
+                                <router-link :to="'/DrinksDetail/' + item.raw.idDrink">
+                                    <v-img 
+                                        :src="item.raw.strDrinkThumb" 
+                                        cover
+                                        aspect-ratio="1/1" 
+                                        height='getImageHeight()'>
+                                    </v-img>
+                                </router-link>
+                                    <v-list-item>
+                                        <template v-slot:title>
+                                            <strong class="no-decoration text-h6 mb-1 text-white d-flex justify-center">{{ item.raw.strDrink }}</strong>
+                                        </template>
+                                    </v-list-item>
+                                
                              </v-card>
-
                          </v-col>
                      </v-row>
              </template>
                  
              <template v-slot:footer="{ page, pageCount, prevPage, nextPage }">
-                 <div class="d-flex align-center justify-center mt-5" style="background-color: gray;">
+                 <div class="d-flex align-center justify-center mt-5" style="background-color: #7c3209;">
                      <v-btn
                          :disabled="page === 1"
                          icon="mdi-arrow-left"
@@ -50,20 +52,21 @@
                          variant="tonal"
                          rounded
                          @click="prevPage"
-                     ></v-btn>
+                         
+                     ><span class="custom-icon mdi mdi-arrow-left"></span></v-btn>
 
-                     <div class="mx-2 text-h6">
+                     <div class="mx-2 text-h6 text-white">
                          Page {{ page }} of {{ pageCount }}
                      </div>
 
                      <v-btn
                          :disabled="page >= pageCount"
-                         icon="mdi-arrow-right"
+                         icon='mdi-arrow-right'
                          density="comfortable"
                          variant="tonal"
                          rounded
                          @click="nextPage"
-                     ></v-btn>
+                     ><span class="custom-icon mdi mdi-arrow-right"></span></v-btn>
                  </div>
              </template>
    </v-data-iterator>
@@ -71,10 +74,12 @@
 </template>
 
 <script>
+    import '@mdi/font/css/materialdesignicons.min.css'  
     export default {
         data() {
             return {
-            cocktail: [] 
+            cocktail: [],
+            arowL:'mdi-arrow-right'
             };
         },
         async mounted() {
@@ -91,16 +96,24 @@
             } catch (error) {
                 console.error(error);
             };
-        },
-
-        methods: {
-            getImageHeight() {
-                return this.$vuetify.breakpoint.smAndDown ? 200 : 500;
-            },
-            navigateToDetails() {
-                console.log("push");
-                this.$router.push("/detailComp");
-            }
         }
     };
+    
 </script>
+
+<style>
+    .color-cor{
+        background-color: #de872b;
+    }
+    .no-decoration {
+        text-decoration: none; /* Remove underline */
+        color: inherit; /* Inherit text color */
+    }
+    .custom-icon {
+        color: white; /* Change this to the desired color */
+    }
+    .gradient{
+        background: linear-gradient(to bottom, #b75e11, transparent);
+    }
+
+</style>
